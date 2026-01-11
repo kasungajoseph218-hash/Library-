@@ -1,0 +1,1189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Jomwaka ICT Library — Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0ea5e9;
+      --primary-dark: #0284c7;
+      --accent: #f59e0b;
+      --bg: #f0f9ff;
+      --bg-gradient: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #fef3c7 100%);
+      --card: #ffffff;
+      --card-border: rgba(14, 165, 233, 0.1);
+      --text: #0c4a6e;
+      --text-muted: #64748b;
+      --shadow: 0 8px 32px rgba(14, 165, 233, 0.12);
+      --shadow-hover: 0 12px 40px rgba(14, 165, 233, 0.2);
+      --radius: 16px;
+      --gap: 16px;
+    }
+
+    .dark {
+      --primary: #38bdf8;
+      --primary-dark: #0ea5e9;
+      --accent: #fbbf24;
+      --bg: #0c1929;
+      --bg-gradient: linear-gradient(135deg, #0c1929 0%, #1e3a5f 50%, #0c1929 100%);
+      --card: #1e293b;
+      --card-border: rgba(56, 189, 248, 0.15);
+      --text: #e0f2fe;
+      --text-muted: #94a3b8;
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      --shadow-hover: 0 12px 40px rgba(56, 189, 248, 0.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      padding: 12px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        radial-gradient(circle at 20% 80%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.06) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .app { max-width: 1100px; margin: 0 auto; }
+
+    /* Info Bar */
+    .info-bar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      padding: 12px 16px;
+      background: var(--card);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--card-border);
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .info-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(245, 158, 11, 0.1) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .info-label { color: var(--text-muted); font-size: 11px; }
+    .info-value { font-weight: 600; font-size: 13px; }
+
+    /* Header */
+    header {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .brand { display: flex; gap: 12px; align-items: center; }
+
+    .logo {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow);
+      animation: logoFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    .brand h1 {
+      font-size: 18px; font-weight: 700;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .brand p { color: var(--text-muted); font-size: 12px; font-family: 'Space Mono', monospace; }
+
+    .actions { display: flex; gap: 10px; align-items: center; }
+
+    .btn {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff; padding: 10px 16px; border-radius: 10px; border: none;
+      cursor: pointer; font-weight: 600; font-size: 13px;
+      box-shadow: var(--shadow); transition: all 0.2s ease; font-family: inherit;
+    }
+
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+
+    .btn.ghost {
+      background: transparent; color: var(--primary);
+      border: 2px solid var(--card-border); box-shadow: none;
+    }
+
+    .btn.ghost:hover { background: var(--card); border-color: var(--primary); }
+
+    .btn.scan {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    /* Search */
+    .topbar { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+
+    .search {
+      flex: 1; min-width: 200px;
+      display: flex; gap: 8px; align-items: center;
+      background: var(--card); padding: 8px 12px; border-radius: 12px;
+      box-shadow: var(--shadow); border: 1px solid var(--card-border);
+    }
+
+    .search:focus-within { border-color: var(--primary); }
+
+    .search input {
+      border: none; outline: none; font-size: 16px;
+      background: transparent; padding: 8px; width: 100%;
+      color: var(--text); font-family: inherit;
+    }
+
+    .search input::placeholder { color: var(--text-muted); }
+
+    /* Quick Nav */
+    .quick { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .tile {
+      min-width: 100px; background: var(--card); padding: 12px;
+      border-radius: 12px; display: flex; flex-direction: column;
+      gap: 6px; align-items: flex-start;
+      box-shadow: var(--shadow); cursor: pointer;
+      border: 1px solid var(--card-border); transition: all 0.2s ease;
+    }
+
+    .tile:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+
+    .tile .ticon {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(245, 158, 11, 0.1) 100%);
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
+    }
+
+    .tile strong { font-size: 13px; }
+    .tile small { color: var(--text-muted); font-size: 11px; }
+
+    /* Section Header */
+    .section-header {
+      display: flex; align-items: center; gap: 12px; margin: 24px 0 14px;
+    }
+
+    .section-header h2 { font-size: 16px; font-weight: 700; }
+
+    .section-header::after {
+      content: ''; flex: 1; height: 2px;
+      background: linear-gradient(90deg, var(--card-border), transparent);
+    }
+
+    /* Form Tabs */
+    .form-tabs {
+      display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap;
+    }
+
+    .form-tab {
+      padding: 10px 18px; border-radius: 10px; border: 2px solid var(--card-border);
+      background: var(--card); cursor: pointer; font-weight: 600;
+      font-size: 13px; transition: all 0.2s ease; font-family: inherit;
+      color: var(--text);
+    }
+
+    .form-tab:hover { border-color: var(--primary); }
+
+    .form-tab.active {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff; border-color: var(--primary);
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--card); padding: 16px; border-radius: 14px;
+      box-shadow: var(--shadow); border: 1px solid var(--card-border);
+      display: flex; flex-direction: column; gap: 10px;
+      transition: all 0.2s ease; animation: cardIn 0.3s ease backwards;
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(15px); }
+    }
+
+    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+
+    .card h3 { font-size: 14px; font-weight: 600; line-height: 1.4; }
+
+    .meta { color: var(--text-muted); font-size: 12px; font-family: 'Space Mono', monospace; }
+
+    .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    .tag {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(245, 158, 11, 0.08) 100%);
+      padding: 5px 8px; border-radius: 6px; font-size: 11px;
+      color: var(--primary); font-weight: 600;
+    }
+
+    .card .row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; margin-top: auto;
+    }
+
+    .download {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff; padding: 8px 12px; border-radius: 8px; border: none;
+      cursor: pointer; font-weight: 700; font-size: 12px;
+      transition: all 0.2s ease; font-family: inherit;
+    }
+
+    .download:hover { transform: scale(1.05); }
+
+    .file-type {
+      font-size: 10px; font-family: 'Space Mono', monospace;
+      padding: 3px 6px; background: rgba(14, 165, 233, 0.08);
+      border-radius: 4px; color: var(--text-muted);
+    }
+
+    /* Scroll Row */
+    .scroll-row {
+      display: flex; gap: 14px; overflow-x: auto; padding-bottom: 8px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .scroll-row::-webkit-scrollbar { height: 4px; }
+    .scroll-row::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 2px; }
+
+    .scroll-row .card { min-width: 260px; scroll-snap-align: start; }
+
+    /* Empty State */
+    .empty-state {
+      grid-column: 1 / -1; text-align: center; padding: 30px 16px;
+      color: var(--text-muted); font-family: 'Space Mono', monospace;
+    }
+
+    /* Hero Image */
+    .hero-image {
+      position: relative; border-radius: 16px; overflow: hidden;
+      margin-top: 24px; box-shadow: var(--shadow-hover);
+    }
+
+    .hero-image img { width: 100%; height: auto; display: block; }
+
+    .hero-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+      padding: 50px 20px 20px; color: #fff;
+    }
+
+    .hero-overlay h3 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .hero-overlay p { font-size: 13px; opacity: 0.9; font-family: 'Space Mono', monospace; }
+
+    /* Footer */
+    footer {
+      margin-top: 30px; padding-top: 16px;
+      border-top: 1px solid var(--card-border);
+      color: var(--text-muted); font-size: 12px; text-align: center;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px); display: flex;
+      align-items: center; justify-content: center;
+      z-index: 9999; padding: 16px; animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; } }
+
+    .modal {
+      background: var(--card); border-radius: 18px;
+      max-width: 400px; width: 100%; padding: 24px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+      border: 1px solid var(--card-border); animation: modalIn 0.3s ease;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+    }
+
+    .modal-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+
+    .modal-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(245, 158, 11, 0.1) 100%);
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+    }
+
+    .modal h3 { font-size: 17px; font-weight: 700; }
+    .modal p { color: var(--text-muted); font-size: 13px; line-height: 1.5; margin-bottom: 16px; }
+
+    .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+
+    /* Scanner Modal */
+    .scanner-container {
+      position: relative; width: 100%; border-radius: 12px;
+      overflow: hidden; background: #000; margin-bottom: 16px;
+    }
+
+    .scanner-container video {
+      width: 100%; height: auto; display: block;
+    }
+
+    .scanner-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .scanner-frame {
+      width: 200px; height: 200px; border: 3px solid var(--primary);
+      border-radius: 12px; box-shadow: 0 0 0 9999px rgba(0,0,0,0.5);
+      animation: scanPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scanPulse {
+      0%, 100% { border-color: var(--primary); }
+      50% { border-color: var(--accent); }
+    }
+
+    .scanner-line {
+      position: absolute; left: 10%; right: 10%; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      animation: scanLine 2s ease-in-out infinite;
+    }
+
+    @keyframes scanLine {
+      0%, 100% { top: 20%; }
+      50% { top: 80%; }
+    }
+
+    /* Auth Modal */
+    .auth-modal {
+      background: var(--card); border-radius: 20px;
+      max-width: 360px; width: 100%; padding: 28px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+      border: 1px solid var(--card-border);
+      animation: modalIn 0.3s ease; text-align: center;
+    }
+
+    .auth-logo {
+      width: 64px; height: 64px; border-radius: 16px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px; box-shadow: var(--shadow);
+    }
+
+    .auth-modal h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    .auth-modal .subtitle { color: var(--text-muted); font-size: 13px; margin-bottom: 20px; }
+
+    .auth-btn {
+      width: 100%; padding: 12px 16px; border-radius: 10px;
+      border: 2px solid var(--card-border); background: var(--card);
+      color: var(--text); font-size: 14px; font-weight: 600;
+      cursor: pointer; display: flex; align-items: center;
+      justify-content: center; gap: 10px; margin-bottom: 10px;
+      transition: all 0.2s ease; font-family: inherit;
+    }
+
+    .auth-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .auth-btn.google { background: #fff; border-color: #e5e7eb; color: #1f2937; }
+    .auth-btn.facebook { background: #1877f2; border-color: #1877f2; color: #fff; }
+    .auth-btn.email { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); border-color: var(--primary); color: #fff; }
+
+    .auth-divider {
+      display: flex; align-items: center; gap: 14px;
+      margin: 16px 0; color: var(--text-muted); font-size: 12px;
+    }
+
+    .auth-divider::before, .auth-divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--card-border);
+    }
+
+    .auth-form { display: none; flex-direction: column; gap: 10px; }
+    .auth-form.active { display: flex; }
+
+    .auth-input {
+      width: 100%; padding: 12px 14px; border-radius: 10px;
+      border: 2px solid var(--card-border); background: var(--card);
+      color: var(--text); font-size: 16px; font-family: inherit;
+    }
+
+    .auth-input:focus { outline: none; border-color: var(--primary); }
+
+    .auth-submit {
+      width: 100%; padding: 12px 16px; border-radius: 10px; border: none;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff; font-size: 14px; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+    }
+
+    .auth-back {
+      background: none; border: none; color: var(--primary);
+      font-size: 13px; cursor: pointer; margin-top: 6px; font-family: inherit;
+    }
+
+    .user-profile {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--card); padding: 6px 12px 6px 6px;
+      border-radius: 50px; border: 1px solid var(--card-border);
+      cursor: pointer; transition: all 0.2s ease;
+    }
+
+    .user-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: 12px;
+    }
+
+    .user-name { font-weight: 600; font-size: 13px; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 20px; right: 20px;
+      background: var(--card); color: var(--text);
+      padding: 12px 16px; border-radius: 10px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      border: 1px solid var(--card-border); font-weight: 600;
+      z-index: 9998; display: flex; align-items: center; gap: 8px;
+      animation: toastIn 0.3s ease;
+    }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(20px); }
+    }
+
+    .toast-icon {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 11px;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .brand h1 { font-size: 16px; }
+      .logo { width: 48px; height: 48px; }
+      .info-bar { padding: 10px 12px; gap: 8px; }
+      .info-item { font-size: 11px; }
+      .tile { min-width: 85px; padding: 10px; }
+      .tile .ticon { width: 32px; height: 32px; font-size: 16px; }
+      .btn { padding: 8px 12px; font-size: 12px; }
+      .hero-overlay h3 { font-size: 16px; }
+      .hero-overlay { padding: 30px 14px 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Info Bar: Date, Location, Temperature -->
+    <div class="info-bar">
+      <div class="info-item">
+        <div class="info-icon">📅</div>
+        <div>
+          <div class="info-label">Today</div>
+          <div class="info-value" id="currentDate">Loading...</div>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">📍</div>
+        <div>
+          <div class="info-label">Location</div>
+          <div class="info-value" id="userLocation">Detecting...</div>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">🌡️</div>
+        <div>
+          <div class="info-label">Temperature</div>
+          <div class="info-value" id="userTemperature">--°C</div>
+        </div>
+      </div>
+      <button class="btn scan" onclick="openScanner()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2"/>
+          <line x1="7" y1="12" x2="17" y2="12"/>
+        </svg>
+        Scan
+      </button>
+    </div>
+
+    <header>
+      <div class="brand">
+        <div class="logo">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+            <path d="M3 6a1 1 0 011-1h3.5a.5.5 0 01.35.14L12 9l4.15-3.86A.5.5 0 0116.5 5H20a1 1 0 011 1v12a1 1 0 01-1 1h-3.5a.5.5 0 01-.35-.14L12 15l-4.15 3.86A.5.5 0 017.5 20H4a1 1 0 01-1-1V6z" fill="#fff"/>
+            <path d="M12 10v5m0 0l-2-2m2 2l2-2" stroke="#0ea5e9" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <h1>Jomwaka ICT Library</h1>
+          <p>Learn. Download. Grow.</p>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn ghost" id="profileBtn">Sign in</button>
+        <button class="btn" id="uploadBtn">Upload</button>
+      </div>
+    </header>
+
+    <section class="topbar">
+      <div class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input id="searchInput" type="search" placeholder="Search books, subjects..." aria-label="Search">
+        <button class="btn ghost" onclick="clearSearch()" style="padding:6px 10px;font-size:12px">Clear</button>
+      </div>
+      <div class="quick">
+        <div class="tile" onclick="scrollToSection('books')">
+          <div class="ticon">📚</div>
+          <strong>Books</strong>
+          <small>Form 1-4</small>
+        </div>
+        <div class="tile" onclick="scrollToSection('courses')">
+          <div class="ticon">🎓</div>
+          <strong>Courses</strong>
+          <small>ICT</small>
+        </div>
+        <div class="tile" onclick="scrollToSection('downloads')">
+          <div class="ticon">📥</div>
+          <strong>Downloads</strong>
+          <small>Your files</small>
+        </div>
+        <div class="tile" onclick="scrollToSection('community')">
+          <div class="ticon">👥</div>
+          <strong>Teachers</strong>
+          <small>Community</small>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <!-- Secondary School Books Section -->
+      <div class="section-header">
+        <h2 id="books">📖 Secondary School Books</h2>
+      </div>
+
+      <div class="form-tabs">
+        <button class="form-tab active" onclick="showForm(1)">Form 1</button>
+        <button class="form-tab" onclick="showForm(2)">Form 2</button>
+        <button class="form-tab" onclick="showForm(3)">Form 3</button>
+        <button class="form-tab" onclick="showForm(4)">Form 4</button>
+      </div>
+
+      <div class="grid" id="booksGrid"></div>
+
+      <!-- Latest Resources -->
+      <div class="section-header">
+        <h2 id="library">📂 Latest Resources</h2>
+      </div>
+
+      <div class="grid" id="resourceGrid"></div>
+
+      <!-- Featured Courses -->
+      <div class="section-header">
+        <h2 id="courses">🎓 Featured Courses</h2>
+      </div>
+
+      <div class="scroll-row">
+        <div class="card">
+          <h3>Introduction to Computer Basics</h3>
+          <p class="meta">Beginner • 6 lessons</p>
+          <div class="tags"><div class="tag">ICT</div><div class="tag">Beginner</div></div>
+          <div class="row">
+            <span class="file-type">VIDEO + PDF</span>
+            <button class="btn ghost" onclick="openCourse('Computer Basics')">Open</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Networking Fundamentals</h3>
+          <p class="meta">Intermediate • 8 lessons</p>
+          <div class="tags"><div class="tag">Network</div><div class="tag">Hands-on</div></div>
+          <div class="row">
+            <span class="file-type">VIDEO + LAB</span>
+            <button class="btn ghost" onclick="openCourse('Networking')">Open</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Web Development Bootcamp</h3>
+          <p class="meta">Beginner • 12 lessons</p>
+          <div class="tags"><div class="tag">Web Dev</div><div class="tag">Project</div></div>
+          <div class="row">
+            <span class="file-type">VIDEO + CODE</span>
+            <button class="btn ghost" onclick="openCourse('Web Development')">Open</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Downloads -->
+      <div class="section-header">
+        <h2 id="downloads">📥 Your Downloads</h2>
+      </div>
+
+      <div id="downloadsArea" class="grid">
+        <div class="empty-state">
+          <p>📥 No recent downloads — click Download on a resource.</p>
+        </div>
+      </div>
+
+      <!-- Community -->
+      <div class="section-header">
+        <h2 id="community">👥 Community & Teachers</h2>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Mr. Chirwa</h3>
+          <p class="meta">Lecturer — Computer Engineering</p>
+          <div class="tags"><div class="tag">MUBAS</div></div>
+          <div class="row">
+            <span class="file-type">12 resources</span>
+            <button class="btn ghost" onclick="messageTeacher('Mr. Chirwa')">Message</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Ms. Banda</h3>
+          <p class="meta">ICT Trainer</p>
+          <div class="tags"><div class="tag">Workshops</div></div>
+          <div class="row">
+            <span class="file-type">8 resources</span>
+            <button class="btn ghost" onclick="messageTeacher('Ms. Banda')">Message</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Dr. Mwale</h3>
+          <p class="meta">Database Specialist</p>
+          <div class="tags"><div class="tag">Databases</div></div>
+          <div class="row">
+            <span class="file-type">15 resources</span>
+            <button class="btn ghost" onclick="messageTeacher('Dr. Mwale')">Message</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <section class="hero-image">
+      <img src="https://pfst.cf2.poecdn.net/base/image/103691c55dc01b6baa498ccf88917142fcc226f8c5ba0786174a1d5d446cf23e?w=832&h=624" alt="Student learning ICT" loading="lazy">
+      <div class="hero-overlay">
+        <h3>Empowering Future Tech Leaders</h3>
+        <p>Join thousands of learners building their ICT skills</p>
+      </div>
+    </section>
+
+    <footer>© <span id="year"></span> Jomwaka ICT Library — Built for learners</footer>
+  </div>
+
+  <script>
+    // Dark mode
+    if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.classList.add('dark');
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      document.documentElement.classList.toggle('dark', e.matches);
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ===== DATE, LOCATION, TEMPERATURE =====
+    function updateDate() {
+      const now = new Date();
+      const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+      document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
+    }
+    updateDate();
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            const { latitude, longitude } = position.coords;
+            fetchLocationName(latitude, longitude);
+            fetchWeather(latitude, longitude);
+          },
+          () => {
+            document.getElementById('userLocation').textContent = 'Location unavailable';
+            document.getElementById('userTemperature').textContent = '--°C';
+          }
+        );
+      } else {
+        document.getElementById('userLocation').textContent = 'Not supported';
+      }
+    }
+
+    async function fetchLocationName(lat, lon) {
+      try {
+        const res = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`);
+        const data = await res.json();
+        const city = data.city || data.locality || data.principalSubdivision || 'Unknown';
+        const country = data.countryCode || '';
+        document.getElementById('userLocation').textContent = `${city}, ${country}`;
+      } catch {
+        document.getElementById('userLocation').textContent = 'Unknown';
+      }
+    }
+
+    async function fetchWeather(lat, lon) {
+      try {
+        const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+        const data = await res.json();
+        const temp = data.current_weather?.temperature;
+        if (temp !== undefined) {
+          document.getElementById('userTemperature').textContent = `${temp}°C`;
+        }
+      } catch {
+        document.getElementById('userTemperature').textContent = '--°C';
+      }
+    }
+
+    getLocation();
+
+    // ===== SECONDARY SCHOOL BOOKS =====
+    const schoolBooks = {
+      1: [
+        { id: 101, title: "Mathematics Form 1", author: "MANEB", subject: "Math", size: "4.2MB" },
+        { id: 102, title: "English Language Form 1", author: "MoE", subject: "English", size: "3.8MB" },
+        { id: 103, title: "Physical Science Form 1", author: "MANEB", subject: "Science", size: "5.1MB" },
+        { id: 104, title: "Biology Form 1", author: "MoE", subject: "Biology", size: "4.5MB" },
+        { id: 105, title: "Geography Form 1", author: "MANEB", subject: "Geography", size: "3.9MB" },
+        { id: 106, title: "History Form 1", author: "MoE", subject: "History", size: "3.2MB" }
+      ],
+      2: [
+        { id: 201, title: "Mathematics Form 2", author: "MANEB", subject: "Math", size: "4.8MB" },
+        { id: 202, title: "English Language Form 2", author: "MoE", subject: "English", size: "4.1MB" },
+        { id: 203, title: "Physical Science Form 2", author: "MANEB", subject: "Science", size: "5.5MB" },
+        { id: 204, title: "Biology Form 2", author: "MoE", subject: "Biology", size: "4.9MB" },
+        { id: 205, title: "Computer Studies Form 2", author: "MoE", subject: "ICT", size: "3.7MB" },
+        { id: 206, title: "Chichewa Form 2", author: "MANEB", subject: "Chichewa", size: "2.9MB" }
+      ],
+      3: [
+        { id: 301, title: "Mathematics Form 3", author: "MANEB", subject: "Math", size: "5.2MB" },
+        { id: 302, title: "English Language Form 3", author: "MoE", subject: "English", size: "4.4MB" },
+        { id: 303, title: "Physical Science Form 3", author: "MANEB", subject: "Science", size: "5.8MB" },
+        { id: 304, title: "Biology Form 3", author: "MoE", subject: "Biology", size: "5.2MB" },
+        { id: 305, title: "Computer Studies Form 3", author: "MoE", subject: "ICT", size: "4.1MB" },
+        { id: 306, title: "Agriculture Form 3", author: "MANEB", subject: "Agriculture", size: "3.5MB" }
+      ],
+      4: [
+        { id: 401, title: "Mathematics Form 4", author: "MANEB", subject: "Math", size: "5.8MB" },
+        { id: 402, title: "English Language Form 4", author: "MoE", subject: "English", size: "4.9MB" },
+        { id: 403, title: "Physical Science Form 4", author: "MANEB", subject: "Science", size: "6.2MB" },
+        { id: 404, title: "Biology Form 4", author: "MoE", subject: "Biology", size: "5.6MB" },
+        { id: 405, title: "Computer Studies Form 4", author: "MoE", subject: "ICT", size: "4.5MB" },
+        { id: 406, title: "MSCE Past Papers 2023", author: "MANEB", subject: "Exams", size: "8.2MB" }
+      ]
+    };
+
+    let currentForm = 1;
+
+    function showForm(form) {
+      currentForm = form;
+      document.querySelectorAll('.form-tab').forEach((tab, i) => {
+        tab.classList.toggle('active', i + 1 === form);
+      });
+      renderBooks(form);
+    }
+
+    function renderBooks(form) {
+      const grid = document.getElementById('booksGrid');
+      const books = schoolBooks[form] || [];
+      grid.innerHTML = '';
+      books.forEach((book, i) => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.style.animationDelay = `${i * 0.05}s`;
+        card.innerHTML = `
+          <h3>${escapeHtml(book.title)}</h3>
+          <div class="meta">${escapeHtml(book.author)} • ${book.size}</div>
+          <div class="tags"><div class="tag">${escapeHtml(book.subject)}</div><div class="tag">Form ${form}</div></div>
+          <div class="row">
+            <span class="file-type">PDF</span>
+            <button class="download" onclick="downloadBook(${book.id}, ${form})">Download</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    showForm(1);
+
+    function downloadBook(id, form) {
+      const book = schoolBooks[form]?.find(b => b.id === id);
+      if (!book) return;
+      addToDownloads(book, 'book');
+      toast(`Downloaded: ${book.title}`, '📥');
+    }
+
+    // ===== RESOURCES =====
+    const resources = [
+      { id: 1, title: "Computer Fundamentals", author: "A. Phiri", subject: "ICT", size: "3.2MB", type: "PDF" },
+      { id: 2, title: "Networking Past Papers 2023", author: "MUBAS", subject: "Network", size: "1.1MB", type: "PDF" },
+      { id: 3, title: "Python Programming Notes", author: "J. Kasunga", subject: "Programming", size: "2.5MB", type: "PDF" },
+      { id: 4, title: "Database Systems Slides", author: "Dr. Mwale", subject: "Database", size: "4.3MB", type: "PPTX" },
+      { id: 5, title: "Cybersecurity Basics", author: "Online", subject: "Security", size: "2.0MB", type: "PDF" },
+      { id: 6, title: "HTML & CSS Guide", author: "Tutorial Team", subject: "Web Dev", size: "3.6MB", type: "PDF" }
+    ];
+
+    function renderResources(list) {
+      const grid = document.getElementById('resourceGrid');
+      grid.innerHTML = '';
+      if (list.length === 0) {
+        grid.innerHTML = '<div class="empty-state"><p>No resources found.</p></div>';
+        return;
+      }
+      list.forEach((r, i) => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.style.animationDelay = `${i * 0.05}s`;
+        card.innerHTML = `
+          <h3>${escapeHtml(r.title)}</h3>
+          <div class="meta">${escapeHtml(r.author)} • ${r.size}</div>
+          <div class="tags"><div class="tag">${escapeHtml(r.subject)}</div></div>
+          <div class="row">
+            <span class="file-type">${r.type}</span>
+            <button class="download" onclick="downloadResource(${r.id})">Download</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    renderResources(resources);
+
+    document.getElementById('searchInput').addEventListener('input', e => {
+      const q = e.target.value.trim().toLowerCase();
+      const filtered = resources.filter(r =>
+        (r.title + ' ' + r.author + ' ' + r.subject).toLowerCase().includes(q)
+      );
+      renderResources(filtered);
+    });
+
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      renderResources(resources);
+    }
+
+    function downloadResource(id) {
+      const res = resources.find(r => r.id === id);
+      if (!res) return;
+      addToDownloads(res, 'resource');
+      toast(`Downloaded: ${res.title}`, '📥');
+    }
+
+    function addToDownloads(item, type) {
+      const area = document.getElementById('downloadsArea');
+      if (area.querySelector('.empty-state')) area.innerHTML = '';
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <h3>${escapeHtml(item.title)}</h3>
+        <div class="meta">${item.size} • saved</div>
+        <div class="tags"><div class="tag">Downloaded</div></div>
+        <div class="row">
+          <span class="file-type">${item.type || 'PDF'}</span>
+          <button class="btn ghost" onclick="openFile('${escapeHtml(item.title)}')">Open</button>
+        </div>
+      `;
+      area.prepend(card);
+    }
+
+    function openFile(title) {
+      showAlert('Open File', `Opening: ${title}\n\nIntegrate file viewer here.`, '📄');
+    }
+
+    function openCourse(name) {
+      showAlert('Open Course', `Course: ${name}\n\nCourse viewer integration here.`, '🎓');
+    }
+
+    function messageTeacher(name) {
+      showModal({
+        title: `Message ${name}`,
+        message: `Start a conversation with ${name}.`,
+        icon: '💬',
+        buttons: [
+          { text: 'Cancel' },
+          { text: 'Send', primary: true, action: () => toast(`Message sent to ${name}`, '📧') }
+        ]
+      });
+    }
+
+    function scrollToSection(id) {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // ===== SCANNER =====
+    function openScanner() {
+      const overlay = document.createElement('div');
+      overlay.className = 'modal-overlay';
+      overlay.id = 'scannerModal';
+      overlay.innerHTML = `
+        <div class="modal" style="max-width:420px">
+          <div class="modal-header">
+            <div class="modal-icon">📷</div>
+            <h3>Document Scanner</h3>
+          </div>
+          <div class="scanner-container">
+            <video id="scannerVideo" autoplay playsinline></video>
+            <div class="scanner-overlay">
+              <div class="scanner-frame"></div>
+              <div class="scanner-line"></div>
+            </div>
+          </div>
+          <p style="text-align:center;margin-bottom:12px">Position document within the frame</p>
+          <div class="modal-actions" style="justify-content:center;gap:12px">
+            <button class="btn ghost" onclick="closeScanner()">Cancel</button>
+            <button class="btn" onclick="captureImage()">📸 Capture</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+      overlay.onclick = e => { if (e.target === overlay) closeScanner(); };
+      startCamera();
+    }
+
+    async function startCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'environment' }
+        });
+        const video = document.getElementById('scannerVideo');
+        if (video) {
+          video.srcObject = stream;
+          window.scannerStream = stream;
+        }
+      } catch {
+        showAlert('Camera Error', 'Could not access camera. Please allow camera permissions.', '❌');
+        closeScanner();
+      }
+    }
+
+    function captureImage() {
+      const video = document.getElementById('scannerVideo');
+      if (!video) return;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d').drawImage(video, 0, 0);
+
+      canvas.toBlob(blob => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `scan_${Date.now()}.png`;
+        link.click();
+        URL.revokeObjectURL(url);
+        toast('Document scanned & saved!', '✅');
+        closeScanner();
+      }, 'image/png');
+    }
+
+    function closeScanner() {
+      if (window.scannerStream) {
+        window.scannerStream.getTracks().forEach(t => t.stop());
+      }
+      document.getElementById('scannerModal')?.remove();
+    }
+
+    // ===== MODAL SYSTEM =====
+    function showModal(options) {
+      const { title, message, icon, buttons, onClose } = options;
+      const overlay = document.createElement('div');
+      overlay.className = 'modal-overlay';
+      overlay.innerHTML = `
+        <div class="modal">
+          <div class="modal-header">
+            <div class="modal-icon">${icon || '📋'}</div>
+            <h3>${escapeHtml(title)}</h3>
+          </div>
+          <p>${escapeHtml(message)}</p>
+          <div class="modal-actions" id="modalActions"></div>
+        </div>
+      `;
+      const actions = overlay.querySelector('#modalActions');
+      buttons.forEach((btn, i) => {
+        const button = document.createElement('button');
+        button.className = btn.primary ? 'btn' : 'btn ghost';
+        button.textContent = btn.text;
+        button.onclick = () => { overlay.remove(); btn.action?.(); onClose?.(i); };
+        actions.appendChild(button);
+      });
+      overlay.onclick = e => { if (e.target === overlay) { overlay.remove(); onClose?.(-1); } };
+      document.body.appendChild(overlay);
+    }
+
+    function showAlert(title, message, icon) {
+      showModal({ title, message, icon, buttons: [{ text: 'OK', primary: true }] });
+    }
+
+    // ===== TOAST =====
+    let toastTimeout;
+    function toast(msg, icon = '✓') {
+      document.getElementById('jomToast')?.remove();
+      const t = document.createElement('div');
+      t.id = 'jomToast';
+      t.className = 'toast';
+      t.innerHTML = `<div class="toast-icon">${icon}</div><span>${escapeHtml(msg)}</span>`;
+      document.body.appendChild(t);
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 3000);
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    // ===== AUTH =====
+    let currentUser = null;
+
+    function showAuthModal() {
+      const overlay = document.createElement('div');
+      overlay.className = 'modal-overlay';
+      overlay.innerHTML = `
+        <div class="auth-modal">
+          <div class="auth-logo">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+              <path d="M3 6a1 1 0 011-1h3.5a.5.5 0 01.35.14L12 9l4.15-3.86A.5.5 0 0116.5 5H20a1 1 0 011 1v12a1 1 0 01-1 1h-3.5a.5.5 0 01-.35-.14L12 15l-4.15 3.86A.5.5 0 017.5 20H4a1 1 0 01-1-1V6z" fill="#fff"/>
+            </svg>
+          </div>
+          <h2>Welcome Back!</h2>
+          <p class="subtitle">Sign in to access your library</p>
+          <div id="authOptions">
+            <button class="auth-btn google" onclick="signInWith('Google')">
+              <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+              Continue with Google
+            </button>
+            <button class="auth-btn facebook" onclick="signInWith('Facebook')">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              Continue with Facebook
+            </button>
+            <div class="auth-divider">or</div>
+            <button class="auth-btn email" onclick="showEmailForm()">📧 Continue with Email</button>
+          </div>
+          <div id="emailForm" class="auth-form">
+            <input type="text" class="auth-input" id="authName" placeholder="Your name">
+            <input type="email" class="auth-input" id="authEmail" placeholder="Email address">
+            <button class="auth-submit" onclick="signInWithEmail()">Sign In</button>
+            <button class="auth-back" onclick="showAuthOptions()">← Back</button>
+          </div>
+        </div>
+      `;
+      overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
+      document.body.appendChild(overlay);
+      window.authOverlay = overlay;
+    }
+
+    function showEmailForm() {
+      document.getElementById('authOptions').style.display = 'none';
+      document.getElementById('emailForm').classList.add('active');
+    }
+
+    function showAuthOptions() {
+      document.getElementById('authOptions').style.display = 'block';
+      document.getElementById('emailForm').classList.remove('active');
+    }
+
+    function signInWith(provider) {
+      const names = ['Alex', 'Sam', 'Jordan', 'Taylor', 'Chris'];
+      const name = names[Math.floor(Math.random() * names.length)];
+      completeSignIn({ name, email: `${name.toLowerCase()}@${provider.toLowerCase()}.com`, provider });
+    }
+
+    function signInWithEmail() {
+      const name = document.getElementById('authName').value.trim();
+      const email = document.getElementById('authEmail').value.trim();
+      if (!name || !email.includes('@')) return;
+      completeSignIn({ name, email, provider: 'Email' });
+    }
+
+    function completeSignIn(user) {
+      currentUser = user;
+      window.authOverlay?.remove();
+      updateHeader();
+      toast(`Welcome, ${user.name}!`, '👋');
+    }
+
+    function updateHeader() {
+      const btn = document.getElementById('profileBtn');
+      if (currentUser) {
+        const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+        btn.outerHTML = `
+          <div class="user-profile" id="profileBtn" onclick="showUserMenu()">
+            <div class="user-avatar">${initials}</div>
+            <span class="user-name">${escapeHtml(currentUser.name)}</span>
+          </div>
+        `;
+      }
+    }
+
+    function showUserMenu() {
+      showModal({
+        title: currentUser.name,
+        message: `Signed in with ${currentUser.provider}\n${currentUser.email}`,
+        icon: '👤',
+        buttons: [
+          { text: 'Cancel' },
+          { text: 'Sign Out', primary: true, action: signOut }
+        ]
+      });
+    }
+
+    function signOut() {
+      const name = currentUser.name;
+      currentUser = null;
+      document.getElementById('profileBtn').outerHTML = `<button class="btn ghost" id="profileBtn">Sign in</button>`;
+      document.getElementById('profileBtn').onclick = showAuthModal;
+      toast(`Goodbye, ${name}!`, '👋');
+    }
+
+    document.getElementById('profileBtn').addEventListener('click', showAuthModal);
+
+    document.getElementById('uploadBtn').addEventListener('click', () => {
+      showModal({
+        title: 'Upload Resource',
+        message: 'Share educational materials with the community.',
+        icon: '📤',
+        buttons: [
+          { text: 'Cancel' },
+          { text: 'Select Files', primary: true, action: () => toast('File picker opened', '📂') }
+        ]
+      });
+    });
+  </script>
+</body>
+</html>
